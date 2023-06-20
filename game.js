@@ -5,13 +5,13 @@ var started = false;
 var level = 0;
 
 
-$(document).keypress(function(){
+$(document).keypress(function () {
     if (!started) {
 
-     
+
         nextSequence();
         started = true;
-        
+
     }
 });
 $(".btn").click(function () {
@@ -21,34 +21,33 @@ $(".btn").click(function () {
     playSound(userChosenColor);
     animatePress(userChosenColor);
 
-    checkAnswer(userClickedPattern.length-1);
+    checkAnswer(userClickedPattern.length - 1);
 });
-function checkAnswer(currentLevel){
-    if (gamePattern[currentLevel]===userClickedPattern[currentLevel]) {
+function checkAnswer(currentLevel) {
+    if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
         console.log("success");
 
 
         if (gamePattern.length === userClickedPattern.length) {
 
-            setTimeout(function(){
+            setTimeout(function () {
                 nextSequence();
 
-            },1000);
-            
+            }, 1000);
+
         }
     }
-    else
-    {
+    else {
         console.log("Wrong");
 
         playSound("wrong");
         $("body").addClass("game-over");
-        setTimeout(function(){
+        setTimeout(function () {
             $("body").removeClass("game-over");
-        },250);
+        }, 250);
 
         $("#level-title").text("Game Over, Press Any Key to Restart");
-        
+
         startOver();
     }
 
@@ -57,12 +56,12 @@ function nextSequence() {
 
     userClickedPattern = [];
     level++;
-    $("#level-title").text("Level "+level);
+    $("#level-title").text("Level " + level);
     var randomNumber = Math.floor(Math.random() * 4);
     var randomChosenColour = buttonColours[randomNumber];
     gamePattern.push(randomChosenColour);
 
-    $("#"+randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
+    $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
     playSound(randomChosenColour);
 }
 function playSound(name) {
@@ -75,8 +74,7 @@ function animatePress(currentColour) {
         $("#" + currentColour).removeClass("pressed");
     }, 100);
 }
-function startOver()
-{   
+function startOver() {
 
     level = 0;
     started = false;
